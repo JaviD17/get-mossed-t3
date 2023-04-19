@@ -8,6 +8,7 @@ import Loading from "./Loading";
 const CreatePostWizard = () => {
   const { user } = useUser();
 
+  // use react hook form and zod instead, this is just to get up and running
   const [input, setInput] = useState<string>("");
 
   const ctx = api.useContext();
