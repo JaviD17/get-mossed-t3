@@ -1,20 +1,30 @@
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { api } from "~/utils/api";
+import Loading from "./Loading";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
 
   const [input, setInput] = useState<string>("");
 
-  const ctx = api.useContext()
+  const ctx = api.useContext();
 
   const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
     onSuccess: () => {
-      setInput('');
-      ctx.posts.getAll.invalidate()
-    }
+      setInput("");
+      void ctx.posts.getAll.invalidate();
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      if (errorMessage && errorMessage[0]) {
+        toast.error(errorMessage[0]);
+      } else {
+        toast.error("Failed to post. Please try again later.");
+      }
+    },
   });
 
   if (!user) return null;
@@ -36,9 +46,17 @@ const CreatePostWizard = () => {
         onChange={(e) => setInput(e.target.value)}
         disabled={isPosting}
       />
-      <button type="submit" onClick={() => mutate({ content: input })}>
-        Post
-      </button>
+      {input !== "" && !isPosting && (
+        <button type="submit" onClick={() => mutate({ content: input })}>
+          Post
+        </button>
+      )}
+
+      {isPosting && (
+        <div className="flex items-center justify-center">
+          <Loading size={20} />
+        </div>
+      )}
     </div>
   );
 };
