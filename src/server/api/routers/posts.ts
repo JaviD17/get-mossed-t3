@@ -50,7 +50,7 @@ export const postsRouter = createTRPCRouter({
     });
   }),
 
-  create: privateProcedure.mutation(async ({ ctx }) => {
-    const author = ctx.currentUser.id;
-  }),
+  // create: privateProcedure.mutation(async ({ ctx }) => {
+  //   const author = ctx.currentUser.id;
+  // }),
 });
