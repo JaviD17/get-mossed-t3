@@ -78,7 +78,7 @@ const Home: NextPage = () => {
             {!!isSignedIn && <SignOutButton />}
           </div>
 
-          <section className="border-b  border-slate-200 p-4">
+          <section className="border-b border-slate-400 p-4">
             <CreatePostWizard />
           </section>
 
