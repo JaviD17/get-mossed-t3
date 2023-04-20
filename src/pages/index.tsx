@@ -11,6 +11,8 @@ import type { RouterOutputs } from "~/utils/api";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import LoadingPage from "~/components/LoadingPage";
+import ProductCard from "~/components/ProductCard";
+import Nav from "~/components/Nav";
 
 dayjs.extend(relativeTime);
 
@@ -28,7 +30,9 @@ const PostView = (props: PostWithUser) => {
       />
       <div className="flex flex-col">
         <div className="flex text-slate-200">
-          <span>{`@${author.firstName}﹒`}</span>
+          <Link href={`/${author.id}`}>
+            <span>{`@${author.firstName}﹒`}</span>
+          </Link>
           <Link href={`/post/${post.id}`}>
             <span className="font-thin">{dayjs(post.createdAt).fromNow()}</span>
           </Link>
@@ -74,18 +78,25 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex h-screen justify-center">
-        <div className="w-full border-x border-slate-400 md:max-w-2xl">
-          <div className="flex justify-center border-b border-slate-400 p-4">
-            {!isSignedIn && <SignInButton />}
-            {!!isSignedIn && <SignOutButton />}
+        {/* nav */}
+        <Nav />
+
+        {!true && (
+          <div className="w-full overflow-y-scroll border-x border-slate-400 md:max-w-2xl">
+            <div className="flex justify-center border-b border-slate-400 p-4">
+              {!isSignedIn && <SignInButton />}
+              {!!isSignedIn && <SignOutButton />}
+            </div>
+
+            <section className="border-b border-slate-400 p-4">
+              <CreatePostWizard />
+            </section>
+
+            <ProductCard />
+
+            <Feed />
           </div>
-
-          <section className="border-b border-slate-400 p-4">
-            <CreatePostWizard />
-          </section>
-
-          <Feed />
-        </div>
+        )}
       </main>
     </>
   );

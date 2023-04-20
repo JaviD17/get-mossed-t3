@@ -1,17 +1,10 @@
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
-import { type NextPage } from "next";
+import { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-
+import Nav from "~/components/Nav";
 import { api } from "~/utils/api";
-import type { RouterOutputs } from "~/utils/api";
 
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import LoadingPage from "~/components/LoadingPage";
-
-const SinglePostPage: NextPage = () => {
+const ShopPage: NextPage = () => {
   const { isSignedIn, isLoaded: userLoaded } = useUser();
 
   // console.log(user); from useUser()
@@ -30,15 +23,10 @@ const SinglePostPage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex h-screen justify-center">
-        <div className="w-full border-x border-slate-400 md:max-w-2xl">
-          <div className="flex justify-center border-b border-slate-400 p-4">
-            {!isSignedIn && <SignInButton />}
-            {!!isSignedIn && <SignOutButton />}
-          </div>
-        </div>
+        <Nav />
       </main>
     </>
   );
 };
 
-export default SinglePostPage;
+export default ShopPage;
