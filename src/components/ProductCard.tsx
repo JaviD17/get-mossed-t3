@@ -5,6 +5,7 @@ import type { RouterOutputs } from "~/utils/api";
 // type PostWithUser = RouterOutputs["posts"]["getAll"][number];
 // const PostView = (props: PostWithUser) => {
 
+// [number] means we only want one element in the array to type ProductCard
 type ProductForShop = RouterOutputs["products"]["getAll"][number];
 const ProductCard = (props: ProductForShop) => {
   return (
