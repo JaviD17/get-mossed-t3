@@ -129,7 +129,7 @@ const Nav = () => {
         {show && (
           <div className="flex flex-col items-center justify-center gap-2 py-2 text-xl font-thin tracking-widest">
             {links.map((link: Link) => (
-              <Link href={link.href}>
+              <Link href={link.href} key={link.href}>
                 <div className="flex items-center justify-center gap-1">
                   <span>{link.element}</span>
                   <p className="">{link.title}</p>

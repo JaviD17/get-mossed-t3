@@ -23,6 +23,9 @@ const Feed = () => {
   );
 };
 
+// type PostWithUser = RouterOutputs["posts"]["getAll"][number];
+// const PostView = (props: PostWithUser) => {
+
 const ShopPage: NextPage = () => {
   const { isLoaded: userLoaded } = useUser();
 
