@@ -94,7 +94,7 @@ const Nav = () => {
               </div>
               <Image
                 src={user?.profileImageUrl}
-                alt={`@${user.firstName}'s profile picture`}
+                alt={`@${user.firstName ?? "someone"}'s profile picture`}
                 height={64}
                 width={64}
                 className="h-16 w-16 rounded-full"
