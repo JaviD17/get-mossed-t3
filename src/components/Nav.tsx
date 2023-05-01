@@ -69,7 +69,9 @@ const Nav = () => {
             height={200}
           />
         </Link>
-        <div className="flex grow items-center justify-around gap-2">
+
+        {/* home and shop links */}
+        <div className="flex grow items-center justify-evenly">
           {/* hidden until medium devices */}
           {links.map((link: Link) => (
             <Link
@@ -80,6 +82,10 @@ const Nav = () => {
               {link.title}
             </Link>
           ))}
+        </div>
+
+        {/* sign in/out buttons and profile image, hidden until medium devices*/}
+        <div className="mr-10 hidden items-center gap-6 md:flex">
           {!isSignedIn && (
             <>
               <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
@@ -89,22 +95,47 @@ const Nav = () => {
           )}
           {!!isSignedIn && (
             <>
-              <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
+              <div className="flex items-center justify-end gap-4 rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
                 <SignOutButton />
               </div>
               <Image
                 src={user?.profileImageUrl}
                 alt={`@${user.firstName ?? "someone"}'s profile picture`}
-                height={64}
-                width={64}
-                className="h-16 w-16 rounded-full"
+                height={56}
+                width={56}
+                className="h-14 w-14 rounded-full"
               />
             </>
           )}
         </div>
       </div>
 
-      {/* menu */}
+      {/* mobile sign in/out buttons */}
+      <div className="md:hidden">
+        {!isSignedIn && (
+          <>
+            <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
+              <SignInButton />
+            </div>
+          </>
+        )}
+        {!!isSignedIn && (
+          <>
+            <div className="flex items-center justify-end gap-4 rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
+              <SignOutButton />
+            </div>
+            <Image
+              src={user?.profileImageUrl}
+              alt={`@${user.firstName ?? "someone"}'s profile picture`}
+              height={56}
+              width={56}
+              className="h-14 w-14 rounded-full"
+            />
+          </>
+        )}
+      </div>
+
+      {/* mobile drawer menu */}
 
       <div
         ref={parent}
