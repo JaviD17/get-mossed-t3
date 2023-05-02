@@ -32,6 +32,7 @@ const SingleProductPage: NextPage<{ productId: string }> = ({ productId }) => {
 
   const addToCart = () => {
     // animate(scope.current, { scale: 1.05 });
+    toast.success(`${data.title} added to cart`);
   };
 
   return (
@@ -93,6 +94,7 @@ import superjson from "superjson";
 import { prisma } from "~/server/db";
 import Footer from "~/components/Footer";
 import { type } from "os";
+import { toast } from "react-hot-toast";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const helpers = createServerSideHelpers({

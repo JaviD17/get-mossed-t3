@@ -70,7 +70,7 @@ const Nav = () => {
           />
         </Link>
 
-        {/* home and shop links */}
+        {/* home and shop links for desktop */}
         <div className="hidden grow items-center justify-evenly md:flex">
           {/* hidden until medium devices */}
           {links.map((link: Link) => (
@@ -81,17 +81,17 @@ const Nav = () => {
         </div>
 
         {/* sign in/out buttons and profile image, hidden until medium devices*/}
-        <div className="mr-10 hidden items-center gap-6 md:flex">
+        <>
           {!isSignedIn && (
-            <>
+            <div className="mr-10 hidden items-center gap-6 md:flex">
               <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
                 <SignInButton />
               </div>
-            </>
+            </div>
           )}
           {!!isSignedIn && (
-            <>
-              <div className="flex items-center justify-end gap-4 rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
+            <div className="hidden basis-1/4 items-center justify-evenly md:flex">
+              <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
                 <SignOutButton />
               </div>
               <Image
@@ -101,21 +101,34 @@ const Nav = () => {
                 width={56}
                 className="h-14 w-14 rounded-full"
               />
-            </>
+              <svg
+                id="shopping-cart"
+                data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                height={40}
+                width={40}
+              >
+                <path
+                  fill="#F8FAFC"
+                  d="M8.5,19A1.5,1.5,0,1,0,10,20.5,1.5,1.5,0,0,0,8.5,19ZM19,16H7a1,1,0,0,1,0-2h8.49121A3.0132,3.0132,0,0,0,18.376,11.82422L19.96143,6.2749A1.00009,1.00009,0,0,0,19,5H6.73907A3.00666,3.00666,0,0,0,3.92139,3H3A1,1,0,0,0,3,5h.92139a1.00459,1.00459,0,0,1,.96142.7251l.15552.54474.00024.00506L6.6792,12.01709A3.00006,3.00006,0,0,0,7,18H19a1,1,0,0,0,0-2ZM17.67432,7l-1.2212,4.27441A1.00458,1.00458,0,0,1,15.49121,12H8.75439l-.25494-.89221L7.32642,7ZM16.5,19A1.5,1.5,0,1,0,18,20.5,1.5,1.5,0,0,0,16.5,19Z"
+                ></path>
+              </svg>
+            </div>
           )}
-        </div>
+        </>
 
         {/* mobile sign in/out buttons */}
-        <div className="flex items-center justify-center gap-4 px-4 md:hidden">
+        <>
           {!isSignedIn && (
-            <>
+            <div className="flex items-center justify-center gap-4 px-4 md:hidden">
               <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
                 <SignInButton />
               </div>
-            </>
+            </div>
           )}
           {!!isSignedIn && (
-            <>
+            <div className="flex items-center justify-evenly basis-4/6 md:hidden">
               <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
                 <SignOutButton />
               </div>
@@ -126,9 +139,22 @@ const Nav = () => {
                 width={56}
                 className="h-14 w-14 rounded-full"
               />
-            </>
+              <svg
+                id="shopping-cart"
+                data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                height={40}
+                width={40}
+              >
+                <path
+                  fill="#F8FAFC"
+                  d="M8.5,19A1.5,1.5,0,1,0,10,20.5,1.5,1.5,0,0,0,8.5,19ZM19,16H7a1,1,0,0,1,0-2h8.49121A3.0132,3.0132,0,0,0,18.376,11.82422L19.96143,6.2749A1.00009,1.00009,0,0,0,19,5H6.73907A3.00666,3.00666,0,0,0,3.92139,3H3A1,1,0,0,0,3,5h.92139a1.00459,1.00459,0,0,1,.96142.7251l.15552.54474.00024.00506L6.6792,12.01709A3.00006,3.00006,0,0,0,7,18H19a1,1,0,0,0,0-2ZM17.67432,7l-1.2212,4.27441A1.00458,1.00458,0,0,1,15.49121,12H8.75439l-.25494-.89221L7.32642,7ZM16.5,19A1.5,1.5,0,1,0,18,20.5,1.5,1.5,0,0,0,16.5,19Z"
+                ></path>
+              </svg>
+            </div>
           )}
-        </div>
+        </>
       </div>
 
       {/* mobile drawer menu */}
