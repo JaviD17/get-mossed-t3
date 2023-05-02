@@ -3,6 +3,8 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import Cart from "./Cart";
+import { AnimatePresence } from "framer-motion";
 
 export type Link = {
   title: string;
@@ -52,10 +54,14 @@ export const links: Link[] = [
 const Nav = () => {
   const { user, isSignedIn } = useUser();
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
   const [parent] = useAutoAnimate<HTMLDivElement>();
 
   const reveal = () => setShow(!show);
+
+  const [showCart, setShowCart] = useState<boolean>(false);
+
+  const revealCart = () => setShowCart(!showCart);
 
   // if(!user) return null
   return (
@@ -108,6 +114,8 @@ const Nav = () => {
                 viewBox="0 0 24 24"
                 height={40}
                 width={40}
+                onClick={revealCart}
+                className="cursor-pointer"
               >
                 <path
                   fill="#F8FAFC"
@@ -128,17 +136,19 @@ const Nav = () => {
             </div>
           )}
           {!!isSignedIn && (
-            <div className="flex items-center justify-evenly basis-4/6 md:hidden">
+            <div className="flex basis-4/6 items-center justify-evenly md:hidden">
               <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
                 <SignOutButton />
               </div>
-              <Image
-                src={user?.profileImageUrl}
-                alt={`@${user.firstName ?? "someone"}'s profile picture`}
-                height={56}
-                width={56}
-                className="h-14 w-14 rounded-full"
-              />
+              {(user?.profileImageUrl || user?.imageUrl) && (
+                <Image
+                  src={user?.profileImageUrl ?? user?.imageUrl}
+                  alt={`@${user.firstName ?? "someone"}'s profile picture`}
+                  height={56}
+                  width={56}
+                  className="h-14 w-14 rounded-full"
+                />
+              )}
               <svg
                 id="shopping-cart"
                 data-name="Layer 1"
@@ -146,6 +156,7 @@ const Nav = () => {
                 viewBox="0 0 24 24"
                 height={40}
                 width={40}
+                onClick={revealCart}
               >
                 <path
                   fill="#F8FAFC"
@@ -191,6 +202,11 @@ const Nav = () => {
           </div>
         )}
       </div>
+
+      {/* positioned absolute for side drawer cart */}
+      <AnimatePresence>
+        {!!showCart && <Cart firstName={user?.firstName ?? "User"} />}
+      </AnimatePresence>
     </div>
   );
 };
