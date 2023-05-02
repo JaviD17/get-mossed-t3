@@ -140,7 +140,14 @@ const Nav = () => {
               <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
                 <SignOutButton />
               </div>
-              {(user?.profileImageUrl || user?.imageUrl) && (
+              <Image
+                src={user?.profileImageUrl || user?.imageUrl}
+                alt={`@${user.firstName ?? "someone"}'s profile picture`}
+                height={56}
+                width={56}
+                className="h-14 w-14 rounded-full"
+              />
+              {/* {(user?.profileImageUrl || user?.imageUrl) && (
                 <Image
                   src={user?.profileImageUrl ?? user?.imageUrl}
                   alt={`@${user.firstName ?? "someone"}'s profile picture`}
@@ -148,7 +155,7 @@ const Nav = () => {
                   width={56}
                   className="h-14 w-14 rounded-full"
                 />
-              )}
+              )} */}
               <svg
                 id="shopping-cart"
                 data-name="Layer 1"
