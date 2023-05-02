@@ -11,22 +11,28 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import LoadingPage from "~/components/LoadingPage";
 import Nav from "~/components/Nav";
 
+import { useAnimate, motion } from "framer-motion";
+
 const SingleProductPage: NextPage<{ productId: string }> = ({ productId }) => {
-  const { data, isLoading: productsLoading } = api.products.getAll.useQuery();
+  const { data, isLoading: productsLoading } =
+    api.products.getProductById.useQuery({ productId });
 
   // Not needed bc getStaticProps and getStaticPaths
   //   if (userLoading) return <div>Loading...</div>;
 
   if (!data) return <div>404</div>;
 
-  console.log(productId);
-  // console.log(user); from useUser()
-
-  // Start fetching asap
-  // api.products.getAll.useQuery();
+  // console.log(productId);
+  console.log(data);
 
   // Return empty div if user isn't loaded yet
   if (productsLoading) return <div />;
+
+  // const [scope, animate] = useAnimate();
+
+  const addToCart = () => {
+    // animate(scope.current, { scale: 1.05 });
+  };
 
   return (
     <>
@@ -38,9 +44,42 @@ const SingleProductPage: NextPage<{ productId: string }> = ({ productId }) => {
       <main className="flex h-screen flex-col justify-between">
         <Nav />
 
-        <section className="flex flex-wrap justify-center">
+        <section className="flex flex-col justify-center p-12">
           {/* <Feed /> */}
-          {productId}
+
+          <div className="pb-12 text-center">
+            <h3 className="text-2xl tracking-widest md:text-3xl">
+              {data.title}
+            </h3>
+          </div>
+
+          {/* desktop */}
+          <div className="flex flex-col items-center justify-between gap-12 md:flex-row md:gap-0">
+            <div className="h-fit overflow-hidden rounded-xl">
+              <Image
+                src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                alt=""
+                width={500}
+                height={380}
+                className="h-[380] w-[500] object-contain"
+              />
+            </div>
+            <div className="flex w-72 flex-col gap-12 md:w-96">
+              <p className="text-center text-lg">{data.description}</p>
+              <p className="text-left text-lg tracking-widest">${data.price}</p>
+              <motion.button
+                whileHover={{ scale: 1.025 }}
+                whileTap={{ scale: 0.975 }}
+                // ref={scope}
+                onClick={addToCart}
+                className="rounded-xl bg-red-200 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950"
+              >
+                Add to Cart
+              </motion.button>
+
+              {/* <div className="flex items-center justify-end gap-4 rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950"> */}
+            </div>
+          </div>
         </section>
         <Footer />
       </main>
@@ -53,6 +92,7 @@ import { appRouter } from "~/server/api/root";
 import superjson from "superjson";
 import { prisma } from "~/server/db";
 import Footer from "~/components/Footer";
+import { type } from "os";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const helpers = createServerSideHelpers({
@@ -63,7 +103,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const id = context.params?.id;
 
-  console.log("SLUGGG", id);
+  // console.log("ID", id);
 
   if (typeof id !== "string") throw new Error("No slug");
 
