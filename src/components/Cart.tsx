@@ -62,7 +62,10 @@ const Cart = (props: { firstName: string }) => {
         {cartItems.length > 0 && (
           <>
             {cartItems.map((cartItem: Product) => (
-              <div className="flex w-11/12 flex-col items-start gap-4 rounded-xl border-2 border-slate-950 bg-slate-700 p-4">
+              <div
+                key={cartItem.id}
+                className="flex w-11/12 flex-col items-start gap-4 rounded-xl border-2 border-slate-950 bg-slate-700 p-4"
+              >
                 <div className="flex w-full justify-between gap-2">
                   <div className="h-fit w-fit overflow-hidden rounded-xl md:hidden">
                     <Image
