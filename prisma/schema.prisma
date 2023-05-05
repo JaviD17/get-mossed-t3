@@ -22,11 +22,12 @@ model Post {
 }
 
 model Product {
-  id          String   @id @default(cuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  title       String   @db.VarChar(255)
-  description String   @db.VarChar(1000)
-  size        String   @db.VarChar(20)
-  price       String   @db.VarChar(20)
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  title        String   @db.VarChar(255)
+  description  String   @db.VarChar(1000)
+  size         String   @db.VarChar(20)
+  price        String   @db.VarChar(20)
+  cartQuantity String   @default("1") @db.VarChar(10)
 }

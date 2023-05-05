@@ -6,3 +6,7 @@ body {
   @apply bg-slate-950 text-slate-50;
   overscroll-behavior: none;
 }
+
+.mojave {
+  @apply rounded-xl bg-gradient-to-r from-yellow-100 via-yellow-300 to-yellow-500 p-2 text-slate-950;
+}

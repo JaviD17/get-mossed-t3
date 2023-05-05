@@ -90,14 +90,14 @@ const Nav = () => {
         <>
           {!isSignedIn && (
             <div className="mr-10 hidden items-center gap-6 md:flex">
-              <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
+              <div className="mojave font-semibold">
                 <SignInButton />
               </div>
             </div>
           )}
           {!!isSignedIn && (
             <div className="hidden basis-1/4 items-center justify-evenly md:flex">
-              <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
+              <div className="mojave font-semibold">
                 <SignOutButton />
               </div>
               <Image
@@ -130,14 +130,14 @@ const Nav = () => {
         <>
           {!isSignedIn && (
             <div className="flex items-center justify-center gap-4 px-4 md:hidden">
-              <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
+              <div className="mojave font-semibold">
                 <SignInButton />
               </div>
             </div>
           )}
           {!!isSignedIn && (
             <div className="flex basis-4/6 items-center justify-evenly md:hidden">
-              <div className="rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950">
+              <div className="mojave font-semibold">
                 <SignOutButton />
               </div>
               {(user?.profileImageUrl || user?.imageUrl) && (

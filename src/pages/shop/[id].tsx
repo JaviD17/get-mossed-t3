@@ -10,8 +10,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import LoadingPage from "~/components/LoadingPage";
 import Nav from "~/components/Nav";
-
-import { useAnimate, motion } from "framer-motion";
+import ProductData from "~/components/ProductData";
 
 const SingleProductPage: NextPage<{ productId: string }> = ({ productId }) => {
   const { data, isLoading: productsLoading } =
@@ -29,11 +28,6 @@ const SingleProductPage: NextPage<{ productId: string }> = ({ productId }) => {
   if (productsLoading) return <div />;
 
   // const [scope, animate] = useAnimate();
-
-  const addToCart = () => {
-    // animate(scope.current, { scale: 1.05 });
-    toast.success(`${data.title} added to cart`);
-  };
 
   return (
     <>
@@ -65,21 +59,9 @@ const SingleProductPage: NextPage<{ productId: string }> = ({ productId }) => {
                 className="h-[380] w-[500] object-contain"
               />
             </div>
-            <div className="flex w-72 flex-col gap-12 md:w-96">
-              <p className="text-center text-lg">{data.description}</p>
-              <p className="text-left text-lg tracking-widest">${data.price}</p>
-              <motion.button
-                whileHover={{ scale: 1.025 }}
-                whileTap={{ scale: 0.975 }}
-                // ref={scope}
-                onClick={addToCart}
-                className="rounded-xl bg-red-200 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950"
-              >
-                Add to Cart
-              </motion.button>
 
-              {/* <div className="flex items-center justify-end gap-4 rounded-xl bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 p-2 font-semibold text-slate-950"> */}
-            </div>
+            {/* Product data */}
+            <ProductData data={data} />
           </div>
         </section>
         <Footer />
@@ -93,8 +75,6 @@ import { appRouter } from "~/server/api/root";
 import superjson from "superjson";
 import { prisma } from "~/server/db";
 import Footer from "~/components/Footer";
-import { type } from "os";
-import { toast } from "react-hot-toast";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const helpers = createServerSideHelpers({
