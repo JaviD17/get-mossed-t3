@@ -14,8 +14,8 @@ type CartActions = {
   //   decQuantity: () => void;
   //   resetQuantity: () => void;
   onAdd: (item: Product) => void;
-  // onToggleCartItemQuantity: (id: string, operation: string) => void;
   onRemove: (id: string) => void;
+  onToggleCartQuantity: (id: string, operation: string) => void;
 };
 
 export const useCartStore = create<CartState & CartActions>()((set) => ({
@@ -85,7 +85,7 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
       cartItems: Product[],
       totalItems: number,
       id: string
-    ) => {
+    ): number => {
       const foundItem = cartItems.find(
         (cartItem: Product) => cartItem.id === id
       );
@@ -103,6 +103,67 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
         state.totalItems,
         id
       ),
+    }));
+  },
+  onToggleCartQuantity: (id: string, operation: string) => {
+    const toggleCartQuantity = (
+      cartItems: Product[],
+      id: string,
+      operation: string
+    ): Product[] => {
+      const foundItem = cartItems.find(
+        (cartItem: Product) => cartItem.id === id
+      );
+
+      if (foundItem === undefined) {
+        return [...cartItems];
+      } else {
+        return cartItems.map((cartItem: Product) =>
+          cartItem.id === id
+            ? {
+                ...cartItem,
+                cartQuantity:
+                  operation === "dec"
+                    ? (Number(cartItem.cartQuantity) - 1 < 1
+                        ? 1
+                        : Number(cartItem.cartQuantity) - 1
+                      ).toString()
+                    : (Number(cartItem.cartQuantity) + 1).toString(),
+              }
+            : { ...cartItem }
+        );
+      }
+    };
+
+    const toggleCartTotal = (
+      cartItems: Product[],
+      cartTotal: number,
+      id: string,
+      operation: string
+    ): number => {
+      cartItems.map((cartItem: Product) => {
+        if (cartItem.id === id) {
+          operation === "dec"
+            ? (cartTotal =
+                cartTotal - Number(cartItem.price) < Number(cartItem.price)
+                  ? Number(cartItem.price)
+                  : cartTotal - Number(cartItem.price))
+            : (cartTotal = cartTotal + Number(cartItem.price));
+        }
+      });
+
+      return cartTotal;
+    };
+
+    set((state) => ({
+      cartItems: toggleCartQuantity(state.cartItems, id, operation),
+      cartTotal: toggleCartTotal(
+        state.cartItems,
+        state.cartTotal,
+        id,
+        operation
+      ),
+      totalItems: 0,
     }));
   },
 }));

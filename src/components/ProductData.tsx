@@ -19,7 +19,7 @@ const ProductData = (props: { data: Product }) => {
   return (
     <div className="flex w-72 flex-col gap-12 md:w-96">
       <p className="text-center text-lg">{data.description}</p>
-      <p className="text-left text-lg tracking-widest">${data.price}</p>
+      <p className="text-left text-lg tracking-widest font-thin">${data.price}</p>
       <motion.button
         whileHover={{ scale: 1.025 }}
         whileTap={{ scale: 0.975 }}

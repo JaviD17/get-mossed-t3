@@ -11,6 +11,9 @@ const Cart = (props: { firstName: string }) => {
   const cartItems = useCartStore((state) => state.cartItems);
   const totalItems = useCartStore((state) => state.totalItems);
   const onRemove = useCartStore((state) => state.onRemove);
+  const onToggleCartQuantity = useCartStore(
+    (state) => state.onToggleCartQuantity
+  );
   //   console.log("TOTAL ITEMS", totalItems);
 
   return (
@@ -89,13 +92,19 @@ const Cart = (props: { firstName: string }) => {
                     />
                   </div>
                   <div className="flex grow flex-col justify-between p-2 md:rounded-xl md:border-2 md:border-slate-950 md:bg-slate-600 md:p-4">
-                    <h4 className="text-base tracking-wider md:text-lg md:tracking-widest">
-                      {cartItem.title}
-                    </h4>
+                    <Link href={`/shop/${cartItem.id}`}>
+                      <motion.h4
+                        whileHover={{ scale: 1.025 }}
+                        whileTap={{ scale: 0.975 }}
+                        className="text-base tracking-wider hover:underline hover:underline-offset-8 md:text-lg md:tracking-widest"
+                      >
+                        {cartItem.title}
+                      </motion.h4>
+                    </Link>
                     {/* <p className="hidden md:inline-block">
                         {cartItem.description.split(" ", 5).join(" ")}...
                       </p> */}
-                    <div className="flex justify-between text-base tracking-wider md:text-lg md:tracking-widest">
+                    <div className="md:tracking-wides flex justify-between text-base font-thin tracking-wider md:text-lg">
                       <p>{cartItem.size}</p>
                       <p>${cartItem.price}</p>
                     </div>
@@ -105,7 +114,13 @@ const Cart = (props: { firstName: string }) => {
                 <div className="flex w-full items-center justify-between">
                   {/* quantity component */}
                   <div className="flex w-fit items-center justify-between gap-4 rounded-xl border-2 border-slate-950 bg-slate-600 p-2">
-                    <button type="button" className="">
+                    <motion.button
+                      whileHover={{ scale: 1.025 }}
+                      whileTap={{ scale: 0.975 }}
+                      onClick={() => onToggleCartQuantity(cartItem.id, "dec")}
+                      type="button"
+                      className=""
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -118,9 +133,15 @@ const Cart = (props: { firstName: string }) => {
                           d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"
                         ></path>
                       </svg>
-                    </button>
+                    </motion.button>
                     <span className="text-xl">{cartItem.cartQuantity}</span>
-                    <button type="button" className="">
+                    <motion.button
+                      whileHover={{ scale: 1.025 }}
+                      whileTap={{ scale: 0.975 }}
+                      onClick={() => onToggleCartQuantity(cartItem.id, "inc")}
+                      type="button"
+                      className=""
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -133,11 +154,13 @@ const Cart = (props: { firstName: string }) => {
                           d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20Zm4-9H13V8a1,1,0,0,0-2,0v3H8a1,1,0,0,0,0,2h3v3a1,1,0,0,0,2,0V13h3a1,1,0,0,0,0-2Z"
                         ></path>
                       </svg>
-                    </button>
+                    </motion.button>
                   </div>
 
                   {/* delete item: Product in cart */}
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.025 }}
+                    whileTap={{ scale: 0.975 }}
                     type="button"
                     onClick={() => onRemove(cartItem.id)}
                     className="cursor-pointer rounded-xl border-2 border-slate-950 bg-slate-600 p-2"
@@ -154,14 +177,20 @@ const Cart = (props: { firstName: string }) => {
                         d="M20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Z"
                       ></path>
                     </svg>
-                  </button>
+                  </motion.button>
                 </div>
               </div>
             ))}
             <div className="flex flex-col items-start justify-between gap-2 rounded-xl border-2 border-slate-950 bg-slate-700 p-4">
-              <p className="tracking-widest">${cartTotal.toFixed(2)}</p>
+              <p className="tracking-widest">Total: ${cartTotal.toFixed(2)}</p>
               <p className="tracking-widest">Total items: {totalItems}</p>
-              <button className="mojave w-full">Checkout</button>
+              <motion.button
+                whileHover={{ scale: 1.025 }}
+                whileTap={{ scale: 0.975 }}
+                className="mojave w-full"
+              >
+                Checkout
+              </motion.button>
             </div>
           </>
         )}
