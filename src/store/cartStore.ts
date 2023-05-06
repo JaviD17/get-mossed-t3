@@ -15,7 +15,7 @@ type CartActions = {
   //   resetQuantity: () => void;
   onAdd: (item: Product) => void;
   // onToggleCartItemQuantity: (id: string, operation: string) => void;
-  // onRemove: (id: string) => void;
+  onRemove: (id: string) => void;
 };
 
 export const useCartStore = create<CartState & CartActions>()((set) => ({
@@ -44,8 +44,11 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
         cartItem.id === item.id
           ? {
               ...cartItem,
-              cartQuantity: Number(
-                cartItem.cartQuantity + item.cartQuantity
+              // cartQuantity: Number(
+              //   cartItem.cartQuantity + item.cartQuantity
+              // ).toString(),
+              cartQuantity: (
+                Number(cartItem.cartQuantity) + Number(item.cartQuantity)
               ).toString(),
             }
           : { ...cartItem }
@@ -56,6 +59,50 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
       cartTotal: state.cartTotal + Number(item.price),
       cartItems: addCartItem(state.cartItems, item),
       totalItems: state.totalItems + Number(item.cartQuantity),
+    }));
+  },
+  onRemove: (id: string) => {
+    const removeCartItem = (cartItems: Product[], id: string): Product[] => {
+      return cartItems.filter((cartItem: Product) => cartItem.id !== id);
+    };
+
+    const removeCartItemNewTotal = (
+      cartItems: Product[],
+      cartTotal: number,
+      id: string
+    ): number => {
+      const foundItem = cartItems.find(
+        (cartItem: Product) => cartItem.id === id
+      );
+
+      const newCartTotal =
+        cartTotal - Number(foundItem?.price) * Number(foundItem?.cartQuantity);
+
+      return newCartTotal;
+    };
+
+    const removeCartItemNewTotalitems = (
+      cartItems: Product[],
+      totalItems: number,
+      id: string
+    ) => {
+      const foundItem = cartItems.find(
+        (cartItem: Product) => cartItem.id === id
+      );
+
+      const newTotalItems = totalItems - Number(foundItem?.cartQuantity);
+
+      return newTotalItems;
+    };
+
+    set((state) => ({
+      cartItems: removeCartItem(state.cartItems, id),
+      cartTotal: removeCartItemNewTotal(state.cartItems, state.cartTotal, id),
+      totalItems: removeCartItemNewTotalitems(
+        state.cartItems,
+        state.totalItems,
+        id
+      ),
     }));
   },
 }));
