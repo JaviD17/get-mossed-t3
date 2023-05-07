@@ -155,6 +155,21 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
       return cartTotal;
     };
 
+    const toggleTotalItems = (
+      totalItems: number,
+      operation: string
+    ): number => {
+      if (operation === "inc") {
+        totalItems = totalItems + 1;
+      }
+
+      if (operation === "dec") {
+        totalItems = totalItems - 1 < 1 ? 1 : totalItems - 1;
+      }
+
+      return totalItems;
+    };
+
     set((state) => ({
       cartItems: toggleCartQuantity(state.cartItems, id, operation),
       cartTotal: toggleCartTotal(
@@ -163,7 +178,7 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
         id,
         operation
       ),
-      totalItems: 0,
+      totalItems: toggleTotalItems(state.totalItems, operation),
     }));
   },
 }));
