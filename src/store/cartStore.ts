@@ -40,9 +40,10 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
       findItem
         ? cartItems.map((cartItem: Product) => {
             if (cartItem.id === item.id) {
-              const parsedItem: string | null = localStorage.getItem(item.id);
+              const localItem: string | null = localStorage.getItem(item.id);
 
-              if (parsedItem !== null) {
+              if (localItem !== null) {
+                const parsedItem = JSON.parse(localItem);
                 const updatedItem: Product = JSON.parse(parsedItem);
                 updatedItem.cartQuantity = (
                   Number(updatedItem.cartQuantity) + 1
