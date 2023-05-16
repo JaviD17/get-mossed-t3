@@ -20,7 +20,7 @@ const Cart = (props: { firstName: string }) => {
 
   useEffect(() => {
     setCart();
-  }, []);
+  }, [setCart]);
 
   return (
     <motion.aside
