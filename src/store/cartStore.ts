@@ -253,7 +253,7 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
         // keys.push(localStorage.key(i)!)
         const key: string | null = localStorage.key(i);
         if (typeof key === "string") {
-          let localItem: string | null = localStorage.getItem(key);
+          const localItem: string | null = localStorage.getItem(key);
           let parsedItem: unknown;
           if (typeof localItem === "string") {
             parsedItem = JSON.parse(localItem);
