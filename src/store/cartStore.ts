@@ -43,7 +43,7 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
               const localItem: string | null = localStorage.getItem(item.id);
 
               if (localItem !== null) {
-                const parsedItem = JSON.parse(localItem);
+                const parsedItem: Product = JSON.parse(localItem);
                 const updatedItem: Product = parsedItem;
                 updatedItem.cartQuantity = (
                   Number(updatedItem.cartQuantity) + 1
