@@ -43,7 +43,7 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
               const localItem: string | null = localStorage.getItem(item.id);
 
               if (localItem !== null) {
-                const parsedItem: unknown = JSON.parse(localItem)
+                const parsedItem: unknown = JSON.parse(localItem);
                 const updatedItem = parsedItem as Product;
                 updatedItem.cartQuantity = (
                   Number(updatedItem.cartQuantity) + 1
@@ -145,12 +145,27 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
       if (foundItem === undefined) {
         return [...cartItems];
       } else {
+        // if (localItem !== null) {
+        //   const parsedItem: unknown = JSON.parse(localItem);
+        //   const updatedItem = parsedItem as Product;
+        //   updatedItem.cartQuantity = (
+        //     Number(updatedItem.cartQuantity) + 1
+        //   ).toString();
+
+        //   localStorage.setItem(item.id, JSON.stringify(updatedItem));
+        // }
         // local storage
         cartItems.map((cartItem: Product) => {
           if (cartItem.id === id) {
-            const updatedItem: Product = JSON.parse(
-              String(localStorage.getItem(foundItem.id))
-            );
+            const localItem: string | null = localStorage.getItem(foundItem.id);
+
+            let parsedItem: unknown;
+
+            if (localItem !== null) {
+              parsedItem = JSON.parse(localItem);
+            }
+
+            const updatedItem = parsedItem as Product;
 
             if (operation === "dec") {
               updatedItem.cartQuantity = (
