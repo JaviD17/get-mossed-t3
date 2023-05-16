@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { useCartStore } from "~/store/cartStore";
 import { RouterOutputs } from "~/utils/api";
 
@@ -19,13 +19,16 @@ const ProductData = (props: { data: Product }) => {
   return (
     <div className="flex w-72 flex-col gap-12 md:w-96">
       <p className="text-center text-lg">{data.description}</p>
-      <p className="text-left text-lg tracking-widest font-thin">${data.price}</p>
+      <p className="text-left text-lg font-thin tracking-widest">
+        ${data.price}
+      </p>
       <motion.button
         whileHover={{ scale: 1.025 }}
         whileTap={{ scale: 0.975 }}
         // ref={scope}
         onClick={addToCart}
-        className="mojave font-semibold hidden md:block"
+        type="button"
+        className="mojave hidden font-semibold md:block"
       >
         Add to Cart
       </motion.button>
@@ -35,6 +38,7 @@ const ProductData = (props: { data: Product }) => {
         // whileTap={{ scale: 0.975 }}
         // ref={scope}
         onClick={addToCart}
+        type="button"
         className="mojave font-semibold md:hidden"
       >
         Add to Cart
