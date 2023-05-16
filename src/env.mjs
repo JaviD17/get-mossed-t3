@@ -31,8 +31,8 @@ const server = z.object({
   // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
   // GITHUB_CLIENT_ID: z.string(),
   // GITHUB_CLIENT_SECRET: z.string(),
-  // STRIPE_PK: z.string(),
-  // STRIPE_SK: z.string(),
+  STRIPE_PK: z.string(),
+  STRIPE_SK: z.string(),
   // STRIPE_PRICE_ID: z.string(),
   // STRIPE_WEBHOOK_SECRET: z.string(),
 });
@@ -54,8 +54,8 @@ const client = z.object({
 const processEnv = {
   DATABASE_URL: process.env.DATABASE_URL,
   NODE_ENV: process.env.NODE_ENV,
-  // STRIPE_PK: process.env.STRIPE_PK,
-  // STRIPE_SK: process.env.STRIPE_SK,
+  STRIPE_PK: process.env.STRIPE_PK,
+  STRIPE_SK: process.env.STRIPE_SK,
   // STRIPE_PRICE_ID: process.env.STRIPE_PRICE_ID,
   // STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
