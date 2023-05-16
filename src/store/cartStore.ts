@@ -40,15 +40,20 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
       findItem
         ? cartItems.map((cartItem: Product) => {
             if (cartItem.id === item.id) {
-              const updatedItem: Product = JSON.parse(
-                String(localStorage.getItem(item.id))
-              );
-              // console.log(updatedItem);
-              updatedItem.cartQuantity = (
-                Number(updatedItem.cartQuantity) + 1
-              ).toString();
+              const parsedItem: string | null = localStorage.getItem(item.id);
 
-              localStorage.setItem(item.id, JSON.stringify(updatedItem));
+              if (parsedItem !== null) {
+                const updatedItem: Product = JSON.parse(parsedItem);
+                updatedItem.cartQuantity = (
+                  Number(updatedItem.cartQuantity) + 1
+                ).toString();
+
+                localStorage.setItem(item.id, JSON.stringify(updatedItem));
+              }
+              // const updatedItem: Product = JSON.parse(
+              //   String(localStorage.getItem(item.id))
+              // );
+              // console.log(updatedItem);
             }
           })
         : localStorage.setItem(item.id, JSON.stringify(item));
