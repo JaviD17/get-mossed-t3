@@ -11,7 +11,7 @@ const ProductData = (props: { data: Product }) => {
   const onAdd = useCartStore((state) => state.onAdd);
 
   const addToCart = () => {
-    toast.success(`${data.title} added to cart`);
+    // toast.success(`${data.title} added to cart`);
     // data === item: Product
     onAdd(data);
   };

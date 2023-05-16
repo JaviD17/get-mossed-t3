@@ -19,6 +19,8 @@ type CartActions = {
   setCart: () => void;
 };
 
+import toast from "react-hot-toast";
+
 export const useCartStore = create<CartState & CartActions>()((set) => ({
   cartTotal: 0.0,
   cartItems: [],
@@ -35,6 +37,9 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
       const findItem = cartItems.find(
         (cartItem: Product) => cartItem.id === item.id
       );
+
+      // toast
+      toast.success(`${item.title} added to cart`);
 
       // local storage
       findItem
