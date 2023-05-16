@@ -247,12 +247,20 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
   },
   setCart: () => {
     const getCartItems = (): Product[] => {
-      let cartItems: Product[] = [];
+      const cartItems: Product[] = [];
 
       for (let i = 1; i < localStorage.length; i++) {
         // keys.push(localStorage.key(i)!)
-        let key: string = String(localStorage.key(i));
-        cartItems.push(JSON.parse(String(localStorage.getItem(key))));
+        const key: string | null = localStorage.key(i);
+        if (typeof key === "string") {
+          let localItem: string | null = localStorage.getItem(key);
+          let parsedItem: unknown;
+          if (typeof localItem === "string") {
+            parsedItem = JSON.parse(localItem);
+          }
+          const updatedItem = parsedItem as Product;
+          cartItems.push(updatedItem);
+        }
       }
 
       return cartItems;
@@ -261,7 +269,7 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
     const getCartTotal = (): number => {
       const cartItems: Product[] = getCartItems();
 
-      let cartTotal: number = 0;
+      let cartTotal = 0;
 
       cartItems.map(
         (cartItem: Product) =>
@@ -275,7 +283,7 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
     const getTotalItems = () => {
       const cartItems: Product[] = getCartItems();
 
-      let totalItems: number = 0;
+      let totalItems = 0;
 
       cartItems.map(
         (cartItem: Product) =>
