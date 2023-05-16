@@ -82,7 +82,7 @@ const Home: NextPage = () => {
         {/* nav */}
         <Nav />
 
-        {!true && (
+        {/* {!true && (
           <div className="w-full overflow-y-scroll border-x border-slate-400 md:max-w-2xl">
             <div className="flex justify-center border-b border-slate-400 p-4">
               {!isSignedIn && <SignInButton />}
@@ -95,7 +95,7 @@ const Home: NextPage = () => {
 
             <Feed />
           </div>
-        )}
+        )} */}
         <Footer />
       </main>
     </>

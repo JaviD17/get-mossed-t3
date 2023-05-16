@@ -25,10 +25,20 @@ const ProductData = (props: { data: Product }) => {
         whileTap={{ scale: 0.975 }}
         // ref={scope}
         onClick={addToCart}
-        className="mojave font-semibold"
+        className="mojave font-semibold hidden md:block"
       >
         Add to Cart
       </motion.button>
+      {/* mobile button with no framer */}
+      <button
+        // whileHover={{ scale: 1.025 }}
+        // whileTap={{ scale: 0.975 }}
+        // ref={scope}
+        onClick={addToCart}
+        className="mojave font-semibold md:hidden"
+      >
+        Add to Cart
+      </button>
     </div>
   );
 };
