@@ -18,6 +18,10 @@ import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 
 import { prisma } from "~/server/db";
 
+import { getAuth } from "@clerk/nextjs/server";
+
+import { stripe } from "~/server/stripe/client";
+
 // type CreateContextOptions = Record<string, never>;
 
 /**
@@ -54,6 +58,7 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
   return {
     prisma,
     currentUserId,
+    stripe
   };
 };
 
@@ -67,7 +72,6 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
 import { TRPCError, initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import { getAuth } from "@clerk/nextjs/server";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -14,7 +15,12 @@ const Cart = (props: { firstName: string }) => {
   const onToggleCartQuantity = useCartStore(
     (state) => state.onToggleCartQuantity
   );
+  const setCart = useCartStore((state) => state.setCart);
   //   console.log("TOTAL ITEMS", totalItems);
+
+  useEffect(() => {
+    setCart();
+  }, []);
 
   return (
     <motion.aside

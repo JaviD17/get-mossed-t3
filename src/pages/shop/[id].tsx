@@ -75,11 +75,12 @@ import { appRouter } from "~/server/api/root";
 import superjson from "superjson";
 import { prisma } from "~/server/db";
 import Footer from "~/components/Footer";
+import { stripe } from "~/server/stripe/client";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const helpers = createServerSideHelpers({
     router: appRouter,
-    ctx: { prisma, currentUserId: null },
+    ctx: { prisma, currentUserId: null, stripe },
     transformer: superjson, // optional - adds superjson serialization
   });
 

@@ -16,6 +16,7 @@ type CartActions = {
   onAdd: (item: Product) => void;
   onRemove: (id: string) => void;
   onToggleCartQuantity: (id: string, operation: string) => void;
+  setCart: () => void;
 };
 
 export const useCartStore = create<CartState & CartActions>()((set) => ({
@@ -34,6 +35,23 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
       const findItem = cartItems.find(
         (cartItem: Product) => cartItem.id === item.id
       );
+
+      // local storage
+      findItem
+        ? cartItems.map((cartItem: Product) => {
+            if (cartItem.id === item.id) {
+              const updatedItem: Product = JSON.parse(
+                String(localStorage.getItem(item.id))
+              );
+              // console.log(updatedItem);
+              updatedItem.cartQuantity = (
+                Number(updatedItem.cartQuantity) + 1
+              ).toString();
+
+              localStorage.setItem(item.id, JSON.stringify(updatedItem));
+            }
+          })
+        : localStorage.setItem(item.id, JSON.stringify(item));
 
       //   if findItem returns 'undefined' then return via spreading cartItems and spreading new item
       //   else if findItem returns 'true' then map cartItems and return via spreading that single cartItem with an updated cartQuantity
@@ -63,6 +81,9 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
   },
   onRemove: (id: string) => {
     const removeCartItem = (cartItems: Product[], id: string): Product[] => {
+      // for local storage
+      localStorage.removeItem(id);
+
       return cartItems.filter((cartItem: Product) => cartItem.id !== id);
     };
 
@@ -118,6 +139,28 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
       if (foundItem === undefined) {
         return [...cartItems];
       } else {
+        // local storage
+        cartItems.map((cartItem: Product) => {
+          if (cartItem.id === id) {
+            const updatedItem: Product = JSON.parse(
+              String(localStorage.getItem(foundItem.id))
+            );
+
+            if (operation === "dec") {
+              updatedItem.cartQuantity = (
+                Number(updatedItem.cartQuantity) - 1 < 1
+                  ? 1
+                  : Number(updatedItem.cartQuantity) - 1
+              ).toString();
+            } else {
+              updatedItem.cartQuantity = (
+                Number(updatedItem.cartQuantity) + 1
+              ).toString();
+            }
+            localStorage.setItem(updatedItem.id, JSON.stringify(updatedItem));
+          }
+        });
+
         return cartItems.map((cartItem: Product) =>
           cartItem.id === id
             ? {
@@ -180,5 +223,51 @@ export const useCartStore = create<CartState & CartActions>()((set) => ({
       ),
       totalItems: toggleTotalItems(state.totalItems, operation),
     }));
+  },
+  setCart: () => {
+    const getCartItems = (): Product[] => {
+      let cartItems: Product[] = [];
+
+      for (let i = 1; i < localStorage.length; i++) {
+        // keys.push(localStorage.key(i)!)
+        let key: string = String(localStorage.key(i));
+        cartItems.push(JSON.parse(String(localStorage.getItem(key))));
+      }
+
+      return cartItems;
+    };
+
+    const getCartTotal = (): number => {
+      const cartItems: Product[] = getCartItems();
+
+      let cartTotal: number = 0;
+
+      cartItems.map(
+        (cartItem: Product) =>
+          (cartTotal =
+            cartTotal + Number(cartItem.price) * Number(cartItem.cartQuantity))
+      );
+
+      return cartTotal;
+    };
+
+    const getTotalItems = () => {
+      const cartItems: Product[] = getCartItems();
+
+      let totalItems: number = 0;
+
+      cartItems.map(
+        (cartItem: Product) =>
+          (totalItems = totalItems + Number(cartItem.cartQuantity))
+      );
+
+      return totalItems;
+    };
+
+    set({
+      cartItems: getCartItems(),
+      cartTotal: getCartTotal(),
+      totalItems: getTotalItems(),
+    });
   },
 }));
