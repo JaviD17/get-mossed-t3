@@ -2,7 +2,7 @@ import { useUser } from "@clerk/nextjs";
 import { motion } from "framer-motion";
 // import toast from "react-hot-toast";
 import { useCartStore } from "~/store/cartStore";
-import { RouterOutputs } from "~/utils/api";
+import type { RouterOutputs } from "~/utils/api";
 
 type Product = RouterOutputs["products"]["getAll"][number];
 

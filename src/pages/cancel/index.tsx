@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import Footer from "~/components/Footer";
@@ -19,7 +19,7 @@ const CancelPage: NextPage = () => {
         <section className="flex flex-col items-center">
           {/* <Feed /> */}
           <h2 className="p-2 text-xl font-semibold md:p-4 md:text-2xl">
-            Don't Worry! We saved your cart!
+            {`Don't Worry! We saved your cart!`}
           </h2>
 
           <Link href={"/shop"}>
