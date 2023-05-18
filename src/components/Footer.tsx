@@ -4,12 +4,15 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="flex flex-col items-center justify-center bg-slate-800 pb-4">
-      <Image
-        src={"/get-mossed-1.png"}
-        alt="Get Mossed Logo"
-        width={200}
-        height={400}
-      />
+      <Link href={"/"}>
+        <Image
+          src={"/get-mossed-1.png"}
+          alt="Get Mossed Logo"
+          width={200}
+          height={400}
+          className="cursor-pointer"
+        />
+      </Link>
       <div className="flex flex-col items-center gap-8">
         <h3 className="text-center text-2xl font-thin tracking-widest">
           Follow us!
