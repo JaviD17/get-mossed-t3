@@ -1,5 +1,5 @@
 import { useUser } from "@clerk/nextjs";
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Footer from "~/components/Footer";
 import LoadingPage from "~/components/LoadingPage";

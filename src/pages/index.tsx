@@ -1,9 +1,9 @@
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import CreatePostWizard from "~/components/CreatePostWizard";
+// import CreatePostWizard from "~/components/CreatePostWizard";
 
 import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
@@ -11,7 +11,7 @@ import type { RouterOutputs } from "~/utils/api";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import LoadingPage from "~/components/LoadingPage";
-import ProductCard from "~/components/ProductCard";
+// import ProductCard from "~/components/ProductCard";
 import Nav from "~/components/Nav";
 import Footer from "~/components/Footer";
 
@@ -44,24 +44,25 @@ const PostView = (props: PostWithUser) => {
   );
 };
 
-const Feed = () => {
-  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
+// const Feed = () => {
+//   const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
 
-  if (postsLoading) return <LoadingPage />;
+//   if (postsLoading) return <LoadingPage />;
 
-  if (!data) return <div>Something went wrong...</div>;
+//   if (!data) return <div>Something went wrong...</div>;
 
-  return (
-    <div>
-      {data?.map((fullPost) => (
-        <PostView {...fullPost} key={fullPost.post.id} />
-      ))}
-    </div>
-  );
-};
+//   return (
+//     <div>
+//       {data?.map((fullPost) => (
+//         <PostView {...fullPost} key={fullPost.post.id} />
+//       ))}
+//     </div>
+//   );
+// };
 
 const Home: NextPage = () => {
-  const { isSignedIn, isLoaded: userLoaded } = useUser();
+  const { isLoaded: userLoaded } = useUser();
+  // const { isSignedIn, isLoaded: userLoaded } = useUser();
 
   // console.log(user); from useUser()
 

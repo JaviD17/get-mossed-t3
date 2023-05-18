@@ -1,7 +1,7 @@
 import { env } from "~/env.mjs";
 import { createTRPCRouter, privateProcedure } from "~/server/api/trpc";
 import { z } from "zod";
-import { RouterOutputs } from "~/utils/api";
+import type { RouterOutputs } from "~/utils/api";
 
 type Product = RouterOutputs["products"]["getAll"][number];
 
@@ -25,7 +25,8 @@ export const stripeRouter = createTRPCRouter({
       )
     )
     .mutation(async ({ ctx, input }) => {
-      const { stripe, currentUserId, prisma } = ctx;
+      const { stripe } = ctx;
+      // const { stripe, currentUserId, prisma } = ctx;
 
       const baseUrl =
         env.NODE_ENV === "development"

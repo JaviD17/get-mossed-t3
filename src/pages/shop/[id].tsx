@@ -1,14 +1,14 @@
-import { GetStaticProps, type NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 
 import { api } from "~/utils/api";
-import type { RouterOutputs } from "~/utils/api";
+// import type { RouterOutputs } from "~/utils/api";
 
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import LoadingPage from "~/components/LoadingPage";
+// import dayjs from "dayjs";
+// import relativeTime from "dayjs/plugin/relativeTime";
+// import LoadingPage from "~/components/LoadingPage";
 import Nav from "~/components/Nav";
 import ProductData from "~/components/ProductData";
 

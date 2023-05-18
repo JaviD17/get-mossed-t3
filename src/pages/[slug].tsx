@@ -1,20 +1,23 @@
-import { SignInButton, SignOutButton } from "@clerk/nextjs";
+// import { SignInButton, SignOutButton } from "@clerk/nextjs";
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
+// import Link from "next/link";
 
 import { api } from "~/utils/api";
-import type { RouterOutputs } from "~/utils/api";
+// import type { RouterOutputs } from "~/utils/api";
 
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import LoadingPage from "~/components/LoadingPage";
+// import dayjs from "dayjs";
+// import relativeTime from "dayjs/plugin/relativeTime";
+// import LoadingPage from "~/components/LoadingPage";
 
 const ProfilePage: NextPage<{ userId: string }> = ({ userId }) => {
-  const { data, isLoading: userLoading } = api.profile.getUserById.useQuery({
+  const { data } = api.profile.getUserById.useQuery({
     userId,
   });
+  // const { data, isLoading: userLoading } = api.profile.getUserById.useQuery({
+  //   userId,
+  // });
 
   // Not needed bc getStaticProps and getStaticPaths
   //   if (userLoading) return <div>Loading...</div>;
