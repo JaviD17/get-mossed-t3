@@ -92,9 +92,9 @@ const Home: NextPage = () => {
           <Image
             src="/hero2.jpg"
             alt="hero"
-            width={1500}
-            height={500}
-            className="max-h-96 max-w-7xl rounded-xl object-cover shadow-md shadow-slate-200"
+            width={1024}
+            height={384}
+            className="max-h-96 max-w-xs rounded-xl object-cover shadow-md shadow-slate-200 md:max-w-3xl lg:max-w-5xl"
           />
         </section>
 
