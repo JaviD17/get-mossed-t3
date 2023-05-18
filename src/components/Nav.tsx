@@ -4,7 +4,7 @@ import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import Cart from "./Cart";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 export type Link = {
   title: string;
@@ -90,16 +90,24 @@ const Nav = () => {
         <>
           {!isSignedIn && (
             <div className="mr-10 hidden items-center gap-6 md:flex">
-              <div className="mojave font-semibold">
+              <motion.div
+                whileHover={{ scale: 1.025 }}
+                whileTap={{ scale: 0.975 }}
+                className="mojave font-semibold"
+              >
                 <SignInButton />
-              </div>
+              </motion.div>
             </div>
           )}
           {!!isSignedIn && (
             <div className="hidden basis-1/4 items-center justify-evenly md:flex">
-              <div className="mojave font-semibold">
+              <motion.div
+                whileHover={{ scale: 1.025 }}
+                whileTap={{ scale: 0.975 }}
+                className="mojave font-semibold"
+              >
                 <SignOutButton />
-              </div>
+              </motion.div>
               <Image
                 src={user?.profileImageUrl}
                 alt={`@${user.firstName ?? "someone"}'s profile picture`}

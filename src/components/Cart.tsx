@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCartStore } from "~/store/cartStore";
 import type { RouterOutputs } from "~/utils/api";
+import { useRouter } from "next/router";
+import { api } from "~/utils/api";
 
 type Product = RouterOutputs["products"]["getAll"][number];
 
@@ -22,6 +24,17 @@ const Cart = (props: { firstName: string }) => {
     setCart();
   }, [setCart]);
 
+  const { mutateAsync: createCheckoutSession } =
+    api.stripe.createCheckoutSession.useMutation();
+  const { push } = useRouter();
+
+  const checkout = async () => {
+    const { checkoutUrl } = await createCheckoutSession(cartItems);
+    if (checkoutUrl) {
+      push(checkoutUrl);
+    }
+  };
+
   return (
     <motion.aside
       initial={{ opacity: 0, scaleZ: 0 }}
@@ -35,7 +48,7 @@ const Cart = (props: { firstName: string }) => {
         {`${props?.firstName}'s Cart`}
       </h3>
 
-      {/* cart list for desktop */}
+      {/* cart list */}
       <div
         className={`flex flex-col items-center bg-slate-600 ${
           cartItems.length < 1
@@ -107,9 +120,6 @@ const Cart = (props: { firstName: string }) => {
                         {cartItem.title}
                       </motion.h4>
                     </Link>
-                    {/* <p className="hidden md:inline-block">
-                        {cartItem.description.split(" ", 5).join(" ")}...
-                      </p> */}
                     <div className="md:tracking-wides flex justify-between text-base font-thin tracking-wider md:text-lg">
                       <p>{cartItem.size}</p>
                       <p>${cartItem.price}</p>
@@ -194,6 +204,7 @@ const Cart = (props: { firstName: string }) => {
                 whileHover={{ scale: 1.025 }}
                 whileTap={{ scale: 0.975 }}
                 className="mojave w-full"
+                onClick={checkout}
               >
                 Checkout
               </motion.button>

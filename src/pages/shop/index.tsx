@@ -1,4 +1,4 @@
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { NextPage } from "next";
 import Head from "next/head";
 import Footer from "~/components/Footer";

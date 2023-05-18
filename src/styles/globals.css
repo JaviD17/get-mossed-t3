@@ -10,3 +10,7 @@ body {
 .mojave {
   @apply rounded-xl bg-gradient-to-r from-yellow-100 via-yellow-300 to-yellow-500 p-2 text-slate-950;
 }
+
+.mojave-disabled {
+  @apply cursor-not-allowed rounded-xl bg-gradient-to-r from-gray-200 via-gray-400 to-gray-600 p-2 text-slate-950 opacity-50;
+}
