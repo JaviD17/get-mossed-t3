@@ -31,7 +31,7 @@ const Cart = (props: { firstName: string }) => {
   const checkout = async () => {
     const { checkoutUrl } = await createCheckoutSession(cartItems);
     if (checkoutUrl) {
-      push(checkoutUrl);
+      void push(checkoutUrl);
     }
   };
 
